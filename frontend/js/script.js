@@ -23,7 +23,7 @@ const loadTasks = async () => {
 }
 
 // Funções CRUD:
-const addTask = async (event) => {
+const taskCreate = async (event) => {
     event.preventDefault();
 
     const task = { title: inputText.value };
@@ -36,6 +36,13 @@ const addTask = async (event) => {
 
     loadTasks();
     inputText.value = '';
+}
+
+const taskDelete = async (id) => {
+    await fetch(`${url}/${id}`, {
+        method: 'delete',
+    });
+    loadTasks();
 }
 
 // Funções Utils:
@@ -67,13 +74,14 @@ const createRow = (task) => {
     const { id, title, created_at, status } = task;
 
     const tr = createElement('tr');
-    const tdTitle = createElement('td', title);
 
+    const tdTitle = createElement('td', title);
     const tdCreatedAt = createElement('td', formatDate(created_at));
     const tdStatus = createElement('td');
     const tdActions = createElement('td');
 
     const select = createSelect(status);
+    tdStatus.appendChild(select);
 
     const editButton = createElement('button', '', '<span class="material-symbols-outlined">edit</span>');
     const deleteButton = createElement('button', '', '<span class="material-symbols-outlined">edit</span>');
@@ -83,7 +91,7 @@ const createRow = (task) => {
     deleteButton.classList.add("btn");
     deleteButton.classList.add("btn-danger");
 
-    tdStatus.appendChild(select);
+    deleteButton.addEventListener('click', () => taskDelete(id));
 
     tdActions.appendChild(editButton);
     tdActions.appendChild(deleteButton);
@@ -113,6 +121,6 @@ const createSelect = (value) => {
     return select;
 }
 
-addForm.addEventListener('submit', addTask);
+addForm.addEventListener('submit', taskCreate);
 
 loadTasks();
