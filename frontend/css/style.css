@@ -1,24 +1,84 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-    text-decoration: none;
-    list-style: none;
-    border: 0;
-    outline: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  list-style: none;
+  border: 0;
+  outline: 0;
 }
 
 body {
-    height: 100%;
-    background: #227feb !important;
+  height: 100%;
+  background: #227feb !important;
 }
 
 .btn {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    padding: .5rem !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: .5rem !important;
+}
+
+.fade-in {
+  animation: fadeIn 500ms;
+}
+
+.wiggle {
+  animation: wiggle 2s linear;
+}
+
+#bg-unfocus {
+  display: none;
+  background: #0000007d;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes wiggle {
+
+  0%,
+  7% {
+    transform: rotateZ(0);
+  }
+
+  15% {
+    transform: rotateZ(-5deg);
+  }
+
+  20% {
+    transform: rotateZ(5deg);
+  }
+
+  25% {
+    transform: rotateZ(-5deg);
+  }
+
+  30% {
+    transform: rotateZ(3deg);
+  }
+
+  35% {
+    transform: rotateZ(-2deg);
+  }
+
+  40%,
+  100% {
+    transform: rotateZ(0);
+  }
 }
