@@ -1,5 +1,8 @@
 const tbody = document.querySelector('tbody');
 const addForm = document.querySelector('.form');
+const modal = document.getElementById('deleteModal');
+const task_id = document.getElementById('task_id');
+const excluirBtn = document.querySelector('#excluirBtn');
 const inputText = document.querySelector('.input-text');
 const url = 'http://localhost:3333/tasks';
 
@@ -55,6 +58,23 @@ const formatDate = (dateUTC) => {
     return date;
 }
 
+const openModal = (id) => {
+    task_id.value = id;
+    modal.classList.add('show');
+    modal.style.display = "block";
+    modal.setAttribute('role', 'dialog');
+}
+
+function hideModal() {
+    const modal = document.getElementById('deleteModal');
+    modal.style.display = 'none';
+}
+
+excluirBtn.addEventListener('click', () => {
+    taskDelete(task_id.value);
+    hideModal();
+});
+
 // Funções de criação das linhas tabela:
 const createElement = (tag, innerText = '', innerHTML = '') => {
     const element = document.createElement(tag);
@@ -91,7 +111,10 @@ const createRow = (task) => {
     deleteButton.classList.add("btn");
     deleteButton.classList.add("btn-danger");
 
-    deleteButton.addEventListener('click', () => taskDelete(id));
+    deleteButton.setAttribute('data-bs-toggle', 'modal');
+    // deleteButton.setAttribute('data-bs-target', '#deleteModal');
+
+    deleteButton.addEventListener('click', () => openModal(id));
 
     tdActions.appendChild(editButton);
     tdActions.appendChild(deleteButton);
@@ -122,5 +145,14 @@ const createSelect = (value) => {
 }
 
 addForm.addEventListener('submit', taskCreate);
+
+
+// Personalizando modal para exluir task
+const btnClose = document.querySelector('.btn-close');
+const btnCancelar = document.querySelector('.btn-cancelar');
+btnClose.addEventListener('click', () => hideModal());
+btnCancelar.addEventListener('click', () => hideModal());
+
+
 
 loadTasks();
