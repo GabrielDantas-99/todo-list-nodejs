@@ -1,12 +1,54 @@
 const tbody = document.querySelector('tbody');
+const addForm = document.querySelector('.form');
+const inputText = document.querySelector('.input-text');
+const url = 'http://localhost:3333/tasks';
 
+// Funções de requição e mapeamento da tabela:
 const fetchTasks = async () => {
-    const response = await fetch('http://localhost:3333/tasks');
-
+    const response = await fetch(url);
+    
     const tasks = await response.json();
     return tasks;
 }
 
+const loadTasks = async () => {
+    const tasks = await fetchTasks();
+
+    tbody.innerHTML = '';
+
+    tasks.forEach(task => {
+        const tr = createRow(task);
+        tbody.appendChild(tr);
+    });
+}
+
+// Funções CRUD:
+const addTask = async (event) => {
+    event.preventDefault();
+
+    const task = { title: inputText.value };
+
+    await fetch(url, {
+        method: 'post',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(task),
+    })
+
+    loadTasks();
+    inputText.value = '';
+}
+
+// Funções Utils:
+const formatDate = (dateUTC) => {
+    const options = {
+        dateStyle: 'long',
+        timeStyle: 'short'
+    }
+    const date = new Date(dateUTC).toLocaleString('pt-br',options);
+    return date;
+}
+
+// Funções de criação das linhas tabela:
 const createElement = (tag, innerText = '', innerHTML = '') => {
     const element = document.createElement(tag);
     if (innerText) {
@@ -20,13 +62,6 @@ const createElement = (tag, innerText = '', innerHTML = '') => {
     return element;
 }
 
-const task = {
-    id: 1,
-    title: "hellow galera",
-    created_at: "00 jan de 2023 00:12",
-    status: "em andamento"
-}
-
 const createRow = (task) => {
 
     const { id, title, created_at, status } = task;
@@ -34,7 +69,7 @@ const createRow = (task) => {
     const tr = createElement('tr');
     const tdTitle = createElement('td', title);
 
-    const tdCreatedAt = createElement('td', created_at);
+    const tdCreatedAt = createElement('td', formatDate(created_at));
     const tdStatus = createElement('td');
     const tdActions = createElement('td');
 
@@ -60,8 +95,7 @@ const createRow = (task) => {
     tr.appendChild(tdStatus);
     tr.appendChild(tdActions);
 
-    tbody.appendChild(tr);
-
+    return tr;
 }
 
 const createSelect = (value) => {
@@ -79,4 +113,6 @@ const createSelect = (value) => {
     return select;
 }
 
-createRow(task);
+addForm.addEventListener('submit', addTask);
+
+loadTasks();
