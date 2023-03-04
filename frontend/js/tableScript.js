@@ -47,20 +47,32 @@ const createRow = (task) => {
 
     const select = createSelect(status);
     select.addEventListener('change', ({ target }) => taskUpdate({ ...task, status: target.value }))
-
     tdStatus.appendChild(select);
 
     const editButton = createElement('button', '', '<span class="material-symbols-outlined">edit</span>');
     const deleteButton = createElement('button', '', '<span class="material-symbols-outlined">delete</span>');
 
+    const editForm = createElement('form');
+    const editInput = createElement('input');
+    editInput.value = title;
+    editForm.appendChild(editInput);
+    editForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        taskUpdate({ id, title: editInput.value, status });
+    })
+
+    editButton.addEventListener('click', () => {
+        tdTitle.innerHTML = '';
+        tdTitle.appendChild(editForm);
+    })
+
     editButton.classList.add("btn");
     editButton.classList.add("btn-warning");
+
     deleteButton.classList.add("btn");
     deleteButton.classList.add("btn-danger");
-
     deleteButton.setAttribute('data-bs-toggle', 'modal');
-    // deleteButton.setAttribute('data-bs-target', '#deleteModal');
-
     deleteButton.addEventListener('click', () => openModal(id));
 
     tdActions.appendChild(editButton);
@@ -77,17 +89,14 @@ const createRow = (task) => {
 }
 
 const createSelect = (value) => {
-
     const options = `
         <option value="pendente">Pendente</option>
         <option value="em andamento">Em Andamento</option>
         <option value="concluida">Concluída</option>
     `;
-
     const select = createElement('select', '', options);
     select.value = value;
     select.classList.add("form-select");
-
     return select;
 }
 
