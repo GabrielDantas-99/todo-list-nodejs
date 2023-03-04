@@ -17,6 +17,16 @@ const taskCreate = async (event) => {
     loadTasks();
     inputText.value = '';
 }
+const taskUpdate = async ({ id, title, status }) => {
+
+    await fetch(`${url}/${id}`, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, status }),
+    });
+    
+    loadTasks();
+}
 
 const taskDelete = async (id) => {
     await fetch(`${url}/${id}`, {
@@ -24,22 +34,6 @@ const taskDelete = async (id) => {
     });
     loadTasks();
 }
-
-// Funções Utils:
-const formatDate = (dateUTC) => {
-    const options = {
-        dateStyle: 'long',
-        timeStyle: 'short'
-    }
-    const date = new Date(dateUTC).toLocaleString('pt-br',options);
-    return date;
-}
-
-
-
-
-
-
 
 addForm.addEventListener('submit', taskCreate);
 

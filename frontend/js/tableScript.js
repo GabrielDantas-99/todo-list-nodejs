@@ -46,10 +46,12 @@ const createRow = (task) => {
     const tdActions = createElement('td');
 
     const select = createSelect(status);
+    select.addEventListener('change', ({ target }) => taskUpdate({ ...task, status: target.value }))
+
     tdStatus.appendChild(select);
 
     const editButton = createElement('button', '', '<span class="material-symbols-outlined">edit</span>');
-    const deleteButton = createElement('button', '', '<span class="material-symbols-outlined">edit</span>');
+    const deleteButton = createElement('button', '', '<span class="material-symbols-outlined">delete</span>');
 
     editButton.classList.add("btn");
     editButton.classList.add("btn-warning");
@@ -87,6 +89,16 @@ const createSelect = (value) => {
     select.classList.add("form-select");
 
     return select;
+}
+
+// Funções Utils:
+const formatDate = (dateUTC) => {
+    const options = {
+        dateStyle: 'long',
+        timeStyle: 'short'
+    }
+    const date = new Date(dateUTC).toLocaleString('pt-br',options);
+    return date;
 }
 
 loadTasks();

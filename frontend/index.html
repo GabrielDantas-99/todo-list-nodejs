@@ -22,10 +22,17 @@
         <form class="form">
             <div class="row">
                 <div class="col-lg-11">
-                    <input type="text" class="input-text border-1 border form-control" placeholder="Adicionar tarefa">
+                    <input 
+                    type="text" 
+                    class="input-text border-1 border form-control" 
+                    placeholder="Adicionar tarefa"
+                    >
                 </div>
                 <div class="col-lg-1">
-                    <button type="submit" class="btn btn-primary d-flex align-items-center mx-auto">
+                    <button 
+                    type="submit" 
+                    class="btn btn-primary d-flex align-items-center mx-auto"
+                    >
                         <span class="material-symbols-outlined">
                             add
                         </span>
@@ -44,75 +51,6 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr>
-                        <td>Título 1</td>
-                        <td>04 de Mar de 2023 14:59</td>
-                        <td>
-                            <select class="form-select">
-                                <option value="Pendente">Pendente</option>
-                                <option value="Em Andamento">Em Andamento</option>
-                                <option value="Concluída">Concluída</option>
-                            </select>
-                        </td>
-                        <td class="d-flex justify-content-around">
-                            <button type="button" class="btn btn-warning">
-                                <span class="material-symbols-outlined">
-                                    edit
-                                </span>
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                                <span class="material-symbols-outlined">
-                                    delete
-                                </span>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Título 1</td>
-                        <td>04 de Mar de 2023 14:59</td>
-                        <td>
-                            <select class="form-select">
-                                <option value="Pendente">Pendente</option>
-                                <option value="Em Andamento">Em Andamento</option>
-                                <option value="Concluída">Concluída</option>
-                            </select>
-                        </td>
-                        <td class="d-flex justify-content-around">
-                            <button type="button" class="btn btn-warning">
-                                <span class="material-symbols-outlined">
-                                    edit
-                                </span>
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                                <span class="material-symbols-outlined">
-                                    delete
-                                </span>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Título 1</td>
-                        <td>04 de Mar de 2023 14:59</td>
-                        <td>
-                            <select class="form-select">
-                                <option value="Pendente">Pendente</option>
-                                <option value="Em Andamento">Em Andamento</option>
-                                <option value="Concluída">Concluída</option>
-                            </select>
-                        </td>
-                        <td class="d-flex justify-content-around">
-                            <button type="button" class="btn btn-warning">
-                                <span class="material-symbols-outlined">
-                                    edit
-                                </span>
-                            </button>
-                            <button type="button" class="btn btn-danger">
-                                <span class="material-symbols-outlined">
-                                    delete
-                                </span>
-                            </button>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
         </div>
@@ -128,9 +66,10 @@
                 <div class="modal-body">
                     Ao clicar em 'Excluir' a tarefa será deletada permanentemente!
                 </div>
-                <input type="text" name="task_id" id="task_id" value="">
+                <input type="hidden" name="task_id" id="task_id" value="">
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary btn-cancelar"
+                        data-bs-dismiss="modal">Cancelar</button>
                     <button id="excluirBtn" type="button" class="deleteBtn btn btn-danger">Excluir</button>
                 </div>
             </div>
